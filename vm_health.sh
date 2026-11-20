@@ -65,19 +65,19 @@ printf 'Disk usage:   %s%%\n' "$disk_usage"
 unhealthy=false
 reasons=()
 
-if awk -v value="$cpu_usage" 'BEGIN { exit !(value >= 60) }'; then
+if awk -v value="$cpu_usage" 'BEGIN { exit !(value > 60) }'; then
   unhealthy=true
-  reasons+=("CPU usage is ${cpu_usage}%, which is at or above 60%."
+  reasons+=("CPU usage is ${cpu_usage}%, which is above 60%." )
 fi
 
-if awk -v value="$memory_usage" 'BEGIN { exit !(value >= 60) }'; then
+if awk -v value="$memory_usage" 'BEGIN { exit !(value > 60) }'; then
   unhealthy=true
-  reasons+=("Memory usage is ${memory_usage}%, which is at or above 60%."
+  reasons+=("Memory usage is ${memory_usage}%, which is above 60%." )
 fi
 
-if awk -v value="$disk_usage" 'BEGIN { exit !(value >= 60) }'; then
+if awk -v value="$disk_usage" 'BEGIN { exit !(value > 60) }'; then
   unhealthy=true
-  reasons+=("Disk usage is ${disk_usage}%, which is at or above 60%."
+  reasons+=("Disk usage is ${disk_usage}%, which is above 60%." )
 fi
 
 if [[ "$unhealthy" == true ]]; then
@@ -89,7 +89,7 @@ if [[ "$unhealthy" == true ]]; then
 else
   echo "VM state: HEALTHY"
   if [[ "$explain" == true ]]; then
-    echo "Reason: CPU, memory, and disk usage are all below 60%."
+    echo "Reason: CPU, memory, and disk usage are 60% or below."
   fi
   exit 0
 fi

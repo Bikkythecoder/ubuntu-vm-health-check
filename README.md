@@ -6,7 +6,7 @@ A Bash script that reports whether an Ubuntu virtual machine is healthy by measu
 - Memory usage
 - Disk usage for the root filesystem
 
-The VM is **healthy** only when all three usage values are below 60%. If any value is 60% or higher, the VM is **unhealthy**.
+The VM is **healthy** when all three usage values are **60% or below**. The VM is **unhealthy** only when any value is greater than 60%.
 
 ## Requirements
 
@@ -40,8 +40,8 @@ Print the metrics, health status, and an explanation:
 
 ## Exit Codes
 
-- `0`: Healthy; all monitored usage values are below 60%
-- `1`: Unhealthy; one or more usage values are at or above 60%
+- `0`: Healthy; all monitored usage values are 60% or below
+- `1`: Unhealthy; one or more usage values are above 60%
 - `2`: Script usage or measurement error
 
 ## Example Output
@@ -53,7 +53,7 @@ CPU usage:    12.5%
 Memory usage: 42.3%
 Disk usage:   38%
 VM state: HEALTHY
-Reason: CPU, memory, and disk usage are all below 60%.
+Reason: CPU, memory, and disk usage are 60% or below.
 ```
 
 Unhealthy:
@@ -63,7 +63,7 @@ CPU usage:    71.2%
 Memory usage: 54.1%
 Disk usage:   45%
 VM state: UNHEALTHY
-Reason: CPU usage is 71.2%, which is at or above 60%.
+Reason: CPU usage is 71.2%, which is above 60%.
 ```
 
 ## How It Works
